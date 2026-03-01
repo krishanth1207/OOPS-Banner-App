@@ -1,46 +1,78 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class Banner {
 
-    public static void main(String[] args) {
+    // Static Inner Class
+    static class CharacterPatternMap {
+        private char character;
+        private String[] pattern;
 
-        String[] lines = {
-            String.join("  ", getLine1O(), getLine1O(), getLine1P(), getLine1S()),
-            String.join("  ", getLine2O(), getLine2O(), getLine2P(), getLine2S()),
-            String.join("  ", getLine3O(), getLine3O(), getLine3P(), getLine3S()),
-            String.join("  ", getLine4O(), getLine4O(), getLine4P(), getLine4S()),
-            String.join("  ", getLine5O(), getLine5O(), getLine5P(), getLine5S()),
-            String.join("  ", getLine6O(), getLine6O(), getLine6P(), getLine6S()),
-            String.join("  ", getLine7O(), getLine7O(), getLine7P(), getLine7S())
-        };
+        public CharacterPatternMap(char character, String[] pattern) {
+            this.character = character;
+            this.pattern = pattern;
+        }
 
-        for (String line : lines) {
-            System.out.println(line);
+        public char getCharacter() {
+            return character;
+        }
+
+        public String[] getPattern() {
+            return pattern;
         }
     }
 
-    // -------- Letter O --------
-    static String getLine1O() { return " ***** "; }
-    static String getLine2O() { return "*     *"; }
-    static String getLine3O() { return "*     *"; }
-    static String getLine4O() { return "*     *"; }
-    static String getLine5O() { return "*     *"; }
-    static String getLine6O() { return "*     *"; }
-    static String getLine7O() { return " ***** "; }
+    public static void main(String[] args) {
 
-    // -------- Letter P --------
-    static String getLine1P() { return " ***** "; }
-    static String getLine2P() { return "*     *"; }
-    static String getLine3P() { return "*     *"; }
-    static String getLine4P() { return " ***** "; }
-    static String getLine5P() { return "*       "; }
-    static String getLine6P() { return "*       "; }
-    static String getLine7P() { return "*       "; }
+        // Create character pattern mappings
+        Map<Character, CharacterPatternMap> patternMap = new HashMap<>();
 
-    // -------- Letter S --------
-    static String getLine1S() { return " ***** "; }
-    static String getLine2S() { return "*       "; }
-    static String getLine3S() { return "*       "; }
-    static String getLine4S() { return " ***** "; }
-    static String getLine5S() { return "       *"; }
-    static String getLine6S() { return "       *"; }
-    static String getLine7S() { return " ***** "; }
+        patternMap.put('O', new CharacterPatternMap('O', new String[]{
+                " ***** ",
+                "*     *",
+                "*     *",
+                "*     *",
+                "*     *",
+                "*     *",
+                " ***** "
+        }));
+
+        patternMap.put('P', new CharacterPatternMap('P', new String[]{
+                " ***** ",
+                "*     *",
+                "*     *",
+                " ***** ",
+                "*       ",
+                "*       ",
+                "*       "
+        }));
+
+       patternMap.put('S', new CharacterPatternMap('S', new String[]{
+        " ***** ",
+        "*      ",
+        "*      ",
+        " ***** ",
+        "      *",
+        "      *",
+        " ***** "
+        }));
+
+        displayBanner("OOPS", patternMap);
+    }
+
+    public static void displayBanner(String word, Map<Character, CharacterPatternMap> patternMap) {
+
+        for (int i = 0; i < 7; i++) {
+            StringBuilder lineBuilder = new StringBuilder();
+
+            for (char ch : word.toCharArray()) {
+                CharacterPatternMap patternObj = patternMap.get(ch);
+                if (patternObj != null) {
+                    lineBuilder.append(patternObj.getPattern()[i]).append("  ");
+                }
+            }
+
+            System.out.println(lineBuilder);
+        }
+    }
 }
