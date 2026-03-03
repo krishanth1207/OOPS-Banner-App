@@ -1,55 +1,56 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class Banner {
 
     public static void main(String[] args) {
 
-        String line1 = String.join("  ",
-                " ***** ",
-                " ***** ",
-                " ******",
-                " ***** ");
+    
+        Map<Character, String[]> patternMap = new HashMap<>();
 
-        String line2 = String.join("  ",
-                "*     *",
-                "*     *",
-                "*     *",
-                "*     *");
+        
+        patternMap.put('O', new String[]{
+                " *** ",
+                "*   *",
+                "*   *",
+                "*   *",
+                " *** "
+        });
 
-        String line3 = String.join("  ",
-                "*     *",
-                "*     *",
-                "*     *",
-                "*      ");
+        patternMap.put('P', new String[]{
+                "**** ",
+                "*   *",
+                "**** ",
+                "*    ",
+                "*    "
+        });
 
-        String line4 = String.join("  ",
-                "*     *",
-                "*     *",
-                " ******",
-                " ***** ");
+        patternMap.put('S', new String[]{
+                " ****",
+                "*    ",
+                " *** ",
+                "    *",
+                "**** "
+        });
 
-        String line5 = String.join("  ",
-                "*     *",
-                "*     *",
-                "*      ",
-                "      *");
+        
+        String word = "OOPS";
 
-        String line6 = String.join("  ",
-                "*     *",
-                "*     *",
-                "*      ",
-                "*     *");
+    
+        for (int row = 0; row < 5; row++) {
 
-        String line7 = String.join("  ",
-                " ***** ",
-                " ***** ",
-                "*      ",
-                " ***** ");
+            for (int i = 0; i < word.length(); i++) {
 
-        System.out.println(line1);
-        System.out.println(line2);
-        System.out.println(line3);
-        System.out.println(line4);
-        System.out.println(line5);
-        System.out.println(line6);
-        System.out.println(line7);
+                char ch = word.charAt(i);
+
+                String[] pattern = patternMap.get(ch);
+
+                if (pattern != null) {
+                    System.out.print(pattern[row] + "  ");
+                }
+            }
+
+            System.out.println();
+        }
     }
 }
